@@ -25,7 +25,6 @@ def simulate(env, epsilon_greedy_policy, gamma, episodes=1):
 
 def padding_theta(theta, action):
     res = zeros(3 * theta.size)
-    action += 1
     res[action * theta.size: (action + 1) * theta.size] = theta
     return res
 
@@ -37,7 +36,7 @@ def argmax(Q, theta, action_space):
     for i in range(len(Qs)):
         if Qs[i] > max:
             max = Qs[i]
-            res = i - 1
+            res = i
     return res
 
 

@@ -48,7 +48,7 @@ class Q:
         self.W += dw
 
 
-ACTION_SPACE = [-1, 0, 1]
+ACTION_SPACE = [0, 1, 2]
 
 
 def create_epsilon_greedy_policy(Q, epsilon):
@@ -110,4 +110,3 @@ class SarsaAlgorithm:
 
         flush_print(f'\rSarsa training process {100}%')
         return step_list, avg_list, avg_MC_list
-
