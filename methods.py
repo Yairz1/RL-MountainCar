@@ -75,7 +75,7 @@ class SarsaAlgorithm:
         self.plot_step = plot_step
         self.theta = create_theta(sigma_p, sigma_v)
 
-    def sarsa(self, env, max_total_steps=int(1e6)):
+    def sarsa(self, env, max_total_steps=int(1e5)):
         steps = 0
         avg_list = []
         step_list = []
@@ -99,14 +99,14 @@ class SarsaAlgorithm:
                 action = new_action
                 padded_theta = next_padded_theta
                 # Collect information for the plot.
-                # if not steps % self.plot_step:
-                #     avg_reward, avg_MC_reward = simulate(env, self.epsilon_greedy, self.gamma, episodes=100)
-                #     avg_list.append(avg_reward)
-                #     avg_MC_list.append(avg_MC_reward)
-                #     step_list.append(steps)
+                if not steps % self.plot_step:
+                    avg_reward, avg_MC_reward = simulate(env, self.epsilon_greedy, self.gamma, self.theta, episodes=100)
+                    avg_list.append(avg_reward)
+                    avg_MC_list.append(avg_MC_reward)
+                    step_list.append(steps)
 
                 if done:
                     break
 
         flush_print(f'\rSarsa training process {100}%')
-        return step_list, avg_list, avg_MC_list
+        return step_list, avg_list, avg_MC_list, self.theta

@@ -3,21 +3,26 @@ import matplotlib.pyplot as plt
 from numpy import zeros
 
 
-def simulate(env, epsilon_greedy_policy, gamma, episodes=1):
+def simulate(env, epsilon_greedy_policy, gamma, theta, episodes=1):
     total_reward = 0.0
     monte_carlo_style_reward = 0
     for _ in range(episodes):
         observation = env.reset()
+
         for t in range(200):
+            state = theta(*observation)
             if episodes == 1:
                 env.render()
-            action = epsilon_greedy_policy(observation, isGreedy=True)
+            action = epsilon_greedy_policy(state, isGreedy=True)
             observation, reward, done, info = env.step(action)
             total_reward += reward
             monte_carlo_style_reward += reward * gamma ** t
+
+
+
             if done:
                 if episodes == 1:
-                    print(f'Found a walkable path to a goal')
+                    print(f'Success')
                 break
 
     return total_reward / episodes, monte_carlo_style_reward / episodes
