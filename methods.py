@@ -2,7 +2,7 @@ import gym
 import numpy as np
 from itertools import product
 from random import uniform
-from numpy import diag, array, exp
+from numpy import diag, array, exp, linspace
 from collections import defaultdict, Counter
 from random import random as rnd
 from Utils import flush_print, simulate, padding_theta, argmax
@@ -16,8 +16,10 @@ def create_x(p, v):
         1      Car Velocity              -0.07          0.07
     """
 
-    c_p = [uniform(a=-1.2, b=0.6) for _ in range(4)]
-    c_v = [uniform(a=-0.07, b=0.07) for _ in range(8)]
+    # c_p = [uniform(a=-1.2, b=0.6) for _ in range(4)]
+    # c_v = [uniform(a=-0.07, b=0.07) for _ in range(8)]
+    c_p = linspace(-1.1, 0.4, 4)
+    c_v = linspace(-0.06, 0.06, 8)
     c = product(c_p, c_v)
     return array([array([p, v]) - array([c1, c2]) for c1, c2 in c])
 
@@ -58,14 +60,14 @@ def create_epsilon_greedy_policy(Q, epsilon):
         rand_number = rnd()
         if rand_number <= eps / len(ACTION_SPACE) + 1 - eps:
             return best_greedy_action
-        return np.random.choice(array([a for a in range(len(ACTION_SPACE)) if a != best_greedy_action]))
+        return np.random.choice(array([a for a in ACTION_SPACE if a != best_greedy_action]))
 
     return epsilon_greedy
 
 
 class SarsaAlgorithm:
 
-    def __init__(self, eps, _lambda, alpha, gamma, sigma_p, sigma_v, feature_space=96, plot_step=15e3):
+    def __init__(self, eps, _lambda, alpha, gamma, sigma_p, sigma_v, feature_space=96, plot_step=1e4):
         self.Q = Q(W=np.random.rand(feature_space))
         self.feature_space = feature_space
         self.epsilon_greedy = create_epsilon_greedy_policy(self.Q, eps)
@@ -87,7 +89,7 @@ class SarsaAlgorithm:
             theta = self.theta(*state)
             action = self.epsilon_greedy(theta)
             padded_theta = padding_theta(theta, action)
-            for _ in range(200):
+            for _ in range(500):
                 steps += 1
                 next_state, R, done, info = env.step(action)  # take a random action
                 next_theta = self.theta(*next_state)
@@ -109,4 +111,4 @@ class SarsaAlgorithm:
                     break
 
         flush_print(f'\rSarsa training process {100}%')
-        return step_list, avg_list, avg_MC_list, self.theta
+        return step_list, avg_list, avg_MC_list

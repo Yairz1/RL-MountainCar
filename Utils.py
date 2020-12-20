@@ -9,7 +9,7 @@ def simulate(env, epsilon_greedy_policy, gamma, theta, episodes=1):
     for _ in range(episodes):
         observation = env.reset()
 
-        for t in range(200):
+        for t in range(500):
             state = theta(*observation)
             if episodes == 1:
                 env.render()
