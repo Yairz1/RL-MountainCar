@@ -1,4 +1,6 @@
 import sys
+
+import gym
 import matplotlib.pyplot as plt
 from numpy import zeros
 
@@ -57,3 +59,5 @@ def show_and_save_plot(name, step_list, res, y_title):
     plt.title(name)
     plt.savefig(name + '.jpeg')
     plt.show()
+
+

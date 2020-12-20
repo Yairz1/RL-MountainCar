@@ -112,3 +112,19 @@ class SarsaAlgorithm:
 
         flush_print(f'\rSarsa training process {100}%')
         return step_list, avg_list, avg_MC_list
+
+
+def show_best_weights(eps, sigma_p, sigma_v):
+    env = gym.make('MountainCar-v0')
+    W = np.load('weights.npy')
+    Q_func = Q(W)
+    epsilon_greedy_policy = create_epsilon_greedy_policy(Q_func, eps)
+    theta = create_theta(sigma_p, sigma_v)
+    observation = env.reset()
+    for t in range(500):
+        state = theta(*observation)
+        env.render()
+        action = epsilon_greedy_policy(state, isGreedy=True)
+        observation, reward, done, info = env.step(action)
+
+    env.close()
