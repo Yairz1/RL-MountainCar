@@ -3,7 +3,7 @@ import numpy as np
 from itertools import product
 from numpy import array, exp, linspace
 from random import random as rnd
-from Utils import flush_print, simulate, padding_theta, argmax
+from Mountain_Car_Sarsa.Utils import flush_print, simulate, padding_theta, argmax
 
 
 def create_x(p, v):
@@ -114,7 +114,7 @@ class SarsaAlgorithm:
 
 def show_best_weights(eps, sigma_p, sigma_v):
     env = gym.make('MountainCar-v0')
-    W = np.load('weights.npy')
+    W = np.load('../Actor_Critic/weights.npy')
     Q_func = Q(W)
     epsilon_greedy_policy = create_epsilon_greedy_policy(Q_func, eps)
     theta = create_theta(sigma_p, sigma_v)

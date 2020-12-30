@@ -3,7 +3,7 @@ import numpy as np
 from itertools import product
 from numpy import array, exp, linspace
 from random import random as rnd
-from Utils import flush_print, simulate, padding_theta, argmax
+from Actor_Critic.Utils import flush_print, simulate, padding_theta, argmax
 
 
 def create_x(p, v):

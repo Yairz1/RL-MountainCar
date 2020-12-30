@@ -1,6 +1,6 @@
 import gym
-from Utils import show_and_save_plot, simulate
-from methods import SarsaAlgorithm, show_best_weights
+from Mountain_Car_Sarsa.Utils import show_and_save_plot, simulate
+from Mountain_Car_Sarsa.methods import SarsaAlgorithm, show_best_weights
 
 if __name__ == '__main__':
     eps = 0.25
