@@ -1,5 +1,4 @@
 import gym
-from numpy import save
 from Utils import show_and_save_plot, simulate
 from methods import SarsaAlgorithm, show_best_weights
 

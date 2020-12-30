@@ -1,9 +1,7 @@
 import gym
 import numpy as np
 from itertools import product
-from random import uniform
-from numpy import diag, array, exp, linspace
-from collections import defaultdict, Counter
+from numpy import array, exp, linspace
 from random import random as rnd
 from Utils import flush_print, simulate, padding_theta, argmax
 
